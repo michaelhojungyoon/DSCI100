@@ -51,8 +51,8 @@ train_summary <- train %>%
               Mean_Chol = mean(Chol, na.rm = TRUE),
               Min_Chol = min(Chol, na.rm = TRUE),
               Max_Chol = max(Chol, na.rm = TRUE),
-              Heart_Disease_Pos = count(train$Num == ">50% diameter narrowing")[2,2],
-              Heart_Disease_Neg = count(train$Num == "<50% diameter narrowing")[2,2],
+              Heart_Disease_Pos = sum(train$Num == ">50% diameter narrowing"),
+              Heart_Disease_Neg = sum(train$Num == "<50% diameter narrowing"),
               Heart_Disease_Pos_Percent = 100*(Heart_Disease_Pos/(Heart_Disease_Pos + Heart_Disease_Neg)),
               Heart_Disease_Neg_Percent = 100*(Heart_Disease_Neg/(Heart_Disease_Pos + Heart_Disease_Neg)) 
 )
