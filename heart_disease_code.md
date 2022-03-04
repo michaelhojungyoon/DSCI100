@@ -3,6 +3,7 @@ library(dplyr)
 library(ggplot2)
 library(tidymodels)
 
+
 #Load processed Cleveland heart disease dataset from database via URL
 url <- "https://archive.ics.uci.edu/ml/machine-learning-databases/heart-disease/processed.cleveland.data"
 download.file(url, destfile =  "data/heartdiseasecleveland.csv")
@@ -26,11 +27,11 @@ heartdisease_cleveland$Num <- as.factor(heartdisease_cleveland$Num)
 class(heartdisease_cleveland$Num) 
 
 #Create training dataset and test dataset
-split <- initial_split(heartdisease_cleveland, prop = 0.75, strata = Num)
-train <- training(split)
-test <- testing(split)
-glimpse(train)
-glimpse(test)
+  split <- initial_split(heartdisease_cleveland, prop = 0.75, strata = Num)
+  train <- training(split)
+  test <- testing(split)
+  glimpse(train)
+  glimpse(test)
 
 #Standardize training data
 train_recipe <- recipe(Num ~ Age + Chol, data = train) %>%
@@ -39,7 +40,7 @@ train_recipe <- recipe(Num ~ Age + Chol, data = train) %>%
     prep()
 train_recipe
 
-train <- bake(train, train_recipe)
+train <- bake(train_recipe, train)
 train
 
 #Summarize training data into table 
