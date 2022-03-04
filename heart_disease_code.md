@@ -45,17 +45,18 @@ train
 
 #Summarize training data into table 
 train_summary <- train %>%
+    mutate(Add = 1) %>%
+    mutate(Total = sum(Add)) %>%
+    group_by(Num) %>%
     summarize(Mean_Age = mean(Age, na.rm = TRUE),
               Min_Age = min(Age, na.rm = TRUE),
               Max_Age = max(Age, na.rm = TRUE),
               Mean_Chol = mean(Chol, na.rm = TRUE),
               Min_Chol = min(Chol, na.rm = TRUE),
               Max_Chol = max(Chol, na.rm = TRUE),
-              Heart_Disease_Pos = sum(train$Num == ">50% diameter narrowing"),
-              Heart_Disease_Neg = sum(train$Num == "<50% diameter narrowing"),
-              Heart_Disease_Pos_Percent = 100*(Heart_Disease_Pos/(Heart_Disease_Pos + Heart_Disease_Neg)),
-              Heart_Disease_Neg_Percent = 100*(Heart_Disease_Neg/(Heart_Disease_Pos + Heart_Disease_Neg)) 
-)
+              Heart_Disease_Num = sum(Add),
+              Percent_of_Total = (Heart_Disease_Num/Total[1:1])*100
+             )
 train_summary
 
 #Create scatterplot showing age vs chol colored by heart disease status
